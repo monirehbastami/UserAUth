@@ -1,0 +1,1 @@
+from schools.api.viewsets.school_viewset import SchoolApiViewSet,CreateSchoolApiView
