@@ -7,7 +7,7 @@ class User(AbstractUser, PermissionsMixin):
     profile_picture = models.FileField(max_length=50)
     phone_number = models.CharField(max_length=11)
     national_code = models.CharField(max_length=10,null=False)
-    birth_date = models.DateField()
+    birth_date = models.DateField(null=True)
     gender = models.CharField(max_length=50,choices=Gender.choices)
     role = models.CharField(max_length=50,choices=Role.choices)
     base_role = Role.ADMIN
