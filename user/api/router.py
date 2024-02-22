@@ -11,4 +11,5 @@ urlpatterns = [
     path('',include(router.urls)),
     path('create-school-staff',viewsets.CreateSchoolStaffApiView.as_view(),
          name='create-school-staff'),
+    path('login',viewsets.CreateTokenView.as_view(),name='login')
 ]
