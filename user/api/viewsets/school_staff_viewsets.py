@@ -1,4 +1,4 @@
-from rest_framework import viewsets
+from rest_framework import viewsets,generics
 from user.api.serializers import SchoolStaffSerializer
 from user.models import SchoolStaff
 from rest_framework.permissions import IsAdminUser,IsAuthenticatedOrReadOnly
@@ -11,6 +11,9 @@ class SchoolStaffApiViewSet(viewsets.ModelViewSet):
     serializer_class = SchoolStaffSerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
     authentication_classes = [TokenAuthentication]
+
+    def get_object(self):
+        return self.request.user
     
     def get_permissions(self):
         if self.action in ['partial_update','create','update']:
