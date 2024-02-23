@@ -8,6 +8,7 @@ class SchoolStaffProfileSerializer(serializers.ModelSerializer):
 
 
 class SchoolStaffSerializer(serializers.ModelSerializer):
+    
     class Meta:
         model = SchoolStaff
         fields = [
@@ -25,8 +26,8 @@ class SchoolStaffSerializer(serializers.ModelSerializer):
         password = validated_data.pop('password')
 
         school_staff = super().create(validated_data)
-
         school_staff.set_password(password)
         school_staff.save()
 
         return school_staff
+    
