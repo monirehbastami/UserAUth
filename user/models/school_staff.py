@@ -7,7 +7,7 @@ from schools.models import School
 
 class SchoolStaffProfile(models.Model):
     user = models.OneToOneField(User,on_delete=models.CASCADE,related_name="school_staff")
-    school = models.OneToOneField(School,on_delete=models.SET_NULL,null=True,related_name='school_staff')
+    school = models.ForeignKey(School,on_delete=models.SET_NULL,null=True,related_name='school_staff')
 
 
 class SchoolStaff(User):

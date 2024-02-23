@@ -14,7 +14,7 @@ class SchoolSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = School
-        fields = "__all__"
+        fields = ["title"]
         validators = [
             UniqueTogetherValidator(
                 queryset=School.objects.all(),
