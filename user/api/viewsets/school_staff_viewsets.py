@@ -9,15 +9,5 @@ class SchoolStaffApiViewSet(viewsets.ModelViewSet):
     queryset = SchoolStaff.school_staffs.all()
     http_method_names = ['get','post','put','patch']
     serializer_class = SchoolStaffSerializer
-    permission_classes = [IsAuthenticatedOrReadOnly]
-    authentication_classes = [TokenAuthentication]
-
-    def get_object(self):
-        return self.request.user
     
-    def get_permissions(self):
-        if self.action in ['partial_update','create','update']:
-            return [IsAdminUser()]
-        
-        return super().get_permissions()
     

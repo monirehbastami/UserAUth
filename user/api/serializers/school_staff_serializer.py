@@ -1,4 +1,5 @@
 from rest_framework import serializers
+from schools.models import School
 from user.models import SchoolStaffProfile, SchoolStaff, SchoolStaffProfile
 
 class SchoolStaffProfileSerializer(serializers.ModelSerializer):
@@ -51,10 +52,16 @@ class SchoolStaffSerializer(serializers.ModelSerializer):
             setattr(instance, attr, value)
         
         instance.save()
+        school_pk = t.get('school')  
+        try:
+            school_obj = School.objects.get(title=t.get('school'))
+        except School.DoesNotExist:
+            school_obj = None
 
-        school_staff_profile, created = SchoolStaffProfile.objects.get_or_create(user=instance)
-        school_staff_profile.school = t.get('school')
-        school_staff_profile.save()
+        if school_obj is not None:
+            school_staff_profile, created = SchoolStaffProfile.objects.get_or_create(user=instance)
+            school_staff_profile.school = school_obj
+            school_staff_profile.save()
 
         if password:
             instance.set_password(password)
