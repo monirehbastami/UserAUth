@@ -5,6 +5,7 @@ from user.api import viewsets
 
 router = DefaultRouter()
 router.register('school-staffs',viewsets.SchoolStaffApiViewSet)
+router.register('admin-school-staff',viewsets.AdminSchoolStaffApiViewSet)
 
 
 urlpatterns = [
