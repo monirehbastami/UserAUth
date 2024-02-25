@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from schools.models import School
-from user.models import SchoolStaffProfile, SchoolStaff, SchoolStaffProfile
+from user.models import SchoolStaffProfile, SchoolStaff, SchoolStaffProfile,User
 
 class SchoolStaffProfileSerializer(serializers.ModelSerializer):
     class Meta:
@@ -135,4 +135,13 @@ class SchoolStaffRetrieveSerializer(serializers.ModelSerializer):
             instance.save()
 
         return instance
+        
+    
+
+
+class UserInformationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['email','is_email_confirmed']
+
     

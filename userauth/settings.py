@@ -11,6 +11,9 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
+import os
+from datetime import timedelta
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -23,9 +26,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-lon3+2c-s49gbr&&xbydu9)(*%*-h8586v2101l-_1&yyo%s!_'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1','localhost']
 
 
 # Application definition
@@ -131,4 +134,37 @@ AUTH_USER_MODEL = 'user.User'
 
 REST_FRAMEWORK = {
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+}
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = "monirehbastami@gmail.com"
+EMAIL_HOST_PASSWORD = "SMTP_PASS"
+DEFAULT_FROM_EMAIL = "monirehbastami@gmail.com"
+
+
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'User Authenticate',
+    'DESCRIPTION': 'Simple User Authenticate',
+    'VERSION': '1.0.0',
+    'SERVE_INCLUDE_SCHEMA': False
+
+}
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(hours=2),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+    'SINGING_KEY': os.getenv('SECRET_KEY'),
+    'AUTH_HEADER_TYPES': ('Bearer',),
+}
+CELERY_BROKER_URL = os.environ.get("CELERY_BROKER")
+CELERY_RESULT_BACKEND = os.environ.get("CELERY_BACKEND")
+
+CACHES = {
+    "default": {
+        "BACKEND": "django.core.cache.backends.redis.RedisCache",
+        "LOCATION": CELERY_RESULT_BACKEND,
+    }
 }

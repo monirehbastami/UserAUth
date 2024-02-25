@@ -1,9 +1,8 @@
-from rest_framework import viewsets,generics
+from rest_framework import viewsets
 from user.api.serializers import SchoolStaffSerializer,SchoolStaffRetrieveSerializer
 from user.models import SchoolStaff
 from rest_framework.permissions import IsAdminUser,IsAuthenticatedOrReadOnly
 from rest_framework.authentication import TokenAuthentication
-from rest_framework import serializers
 
 
 class SchoolStaffApiViewSet(viewsets.ModelViewSet):
@@ -28,13 +27,13 @@ class SchoolStaffApiViewSet(viewsets.ModelViewSet):
     
 class AdminSchoolStaffApiViewSet(viewsets.ModelViewSet):
     queryset = SchoolStaff.school_staffs.all()
-    http_method_names = ['get','post','put','patch']
+    http_method_names = ['get','post','put','patch','delete']
     serializer_class = SchoolStaffSerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
     authentication_classes = [TokenAuthentication]
 
     def get_permissions(self):
-        if self.action in ['partial_update','create','update']:
+        if self.action in ['partial_update','create','update','delete']:
             return [IsAdminUser()]
         
         return super().get_permissions()
@@ -45,3 +44,6 @@ class AdminSchoolStaffApiViewSet(viewsets.ModelViewSet):
         if self.action == 'retrieve':
             return SchoolStaffRetrieveSerializer
         return super().get_serializer_class()
+    
+ 
+    
