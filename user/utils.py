@@ -4,10 +4,6 @@ from celery import shared_task
 from django.core.mail import EmailMessage
 from userauth.settings import EMAIL_HOST_USER
 from userauth.celery import app
-
-from celery.utils.log import get_task_logger
-
-from .email import send_reset_password_email
 from time import sleep
 
 @shared_task

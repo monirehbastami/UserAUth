@@ -11,6 +11,7 @@ from rest_framework.response import Response
 from rest_framework import generics, status
 from user.api.serializers import ChangePasswordActionSerializer
 from drf_spectacular.utils import extend_schema
+import jwt
 
 
 @extend_schema(tags=["Change Password"])
@@ -21,7 +22,9 @@ class ChangePasswordRequestViewSet(generics.GenericAPIView):
         serializer.is_valid(raise_exception=True)
 
         user = serializer.validated_data['user']
-        token = RefreshToken.for_user(user).access_token
+        token = jwt.encode(payload={"user_id": user.id},
+                              key='secret',
+                              algorithm="HS256")
         current_site = 'http://localhost:8000'
         url = f'{current_site}/change-password-action?token={str(token)}'
 
