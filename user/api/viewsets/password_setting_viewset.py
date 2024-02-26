@@ -1,12 +1,9 @@
 from rest_framework import status
 from rest_framework.response import Response
-from drf_spectacular.utils import extend_schema
 from rest_framework import generics, status
 from rest_framework.response import Response
-from rest_framework_simplejwt.tokens import RefreshToken
 from user.api.serializers import ChangePasswordRequestSerializer
 from user.utils import send_reset_password_email_task
-from drf_spectacular.utils import extend_schema
 from rest_framework.response import Response
 from rest_framework import generics, status
 from user.api.serializers import ChangePasswordActionSerializer
@@ -17,6 +14,7 @@ import jwt
 @extend_schema(tags=["Change Password"])
 class ChangePasswordRequestViewSet(generics.GenericAPIView):
     serializer_class = ChangePasswordRequestSerializer
+    
     def post(self, request):
         serializer: ChangePasswordRequestSerializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
@@ -40,8 +38,6 @@ class ChangePasswordRequestViewSet(generics.GenericAPIView):
             'password': serializer.validated_data['password'],
             'repeat_password': serializer.validated_data['repeat_password'],
         }
-
-        # ارسال درخواست به ویو ChangePasswordActionViewSet
         ChangePasswordActionViewSet(data=serializer_data)
         return Response(data=response_data, status=status.HTTP_200_OK)   
 
