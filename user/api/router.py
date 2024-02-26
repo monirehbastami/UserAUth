@@ -12,5 +12,5 @@ urlpatterns = [
     path('login',viewsets.CreateTokenView.as_view(),name='login'),
     path('change-password-request', viewsets.ChangePasswordRequestViewSet.as_view(), name='change-password-request'),
     path('change-password-action', viewsets.ChangePasswordActionViewSet.as_view(), name='change-password-action'),
-    path('indexx',index,name='indexx')
+    
 ]   

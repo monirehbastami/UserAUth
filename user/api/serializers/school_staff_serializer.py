@@ -1,6 +1,8 @@
 from rest_framework import serializers
 from schools.models import School
-from user.models import SchoolStaffProfile, SchoolStaff, SchoolStaffProfile,User
+from user.models import SchoolStaffProfile, SchoolStaff, SchoolStaffProfile
+from rest_framework.validators import UniqueTogetherValidator
+
 
 class SchoolStaffProfileSerializer(serializers.ModelSerializer):
     class Meta:
@@ -23,6 +25,18 @@ class SchoolStaffSerializer(serializers.ModelSerializer):
             'password': {'write_only': True},
             'phone_number': {'required': True}
         }
+        validators = [
+            UniqueTogetherValidator(
+                queryset=SchoolStaff.objects.all(),
+                fields=['phone_number'],
+                message='phone_number must be unique'
+            ),
+            UniqueTogetherValidator(
+                queryset=SchoolStaff.objects.all(),
+                fields=['email'],
+                message='email must be unique'
+            )
+        ]
 
     def create(self, validated_data):
         password = validated_data.pop('password', None)
@@ -90,6 +104,23 @@ class SchoolStaffRetrieveSerializer(serializers.ModelSerializer):
             'password': {'write_only': True},
             'phone_number': {'required': True}
         }
+        validators = [
+            UniqueTogetherValidator(
+                queryset=SchoolStaff.objects.all(),
+                fields=['phone_number'],
+                message='phone_number must be unique'
+            ),
+            UniqueTogetherValidator(
+                queryset=SchoolStaff.objects.all(),
+                fields=['email'],
+                message='email must be unique'
+            ),
+            UniqueTogetherValidator(
+                queryset=SchoolStaff.objects.all(),
+                fields=['national_code'],
+                message='national_code must be unique'
+            )
+        ]
 
     def create(self, validated_data):
         password = validated_data.pop('password', None)

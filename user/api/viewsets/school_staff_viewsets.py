@@ -19,9 +19,9 @@ class SchoolStaffApiViewSet(viewsets.ModelViewSet):
         
 
     def get_serializer_class(self):
-        if self.action == 'list':
+        if self.action in ['list','create']:
             return SchoolStaffSerializer
-        if self.action in ['create','update','partial_update']:
+        if self.action in ['update','partial_update']:
             return SchoolStaffRetrieveSerializer
         return super().get_serializer_class()
     
