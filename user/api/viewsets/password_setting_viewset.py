@@ -33,12 +33,7 @@ class ChangePasswordRequestViewSet(generics.GenericAPIView):
             'message': 'Reset Password Email hs been sent',
             'token': str(token)
         }
-        serializer_data = {
-            'token': token,
-            'password': serializer.validated_data['password'],
-            'repeat_password': serializer.validated_data['repeat_password'],
-        }
-        ChangePasswordActionViewSet(data=serializer_data)
+       
         return Response(data=response_data, status=status.HTTP_200_OK)   
 
 
@@ -49,6 +44,7 @@ class ChangePasswordActionViewSet(generics.GenericAPIView):
     
     def get(self, request, *args, **kwargs):
         token= request.query_params.get('token')
+        
         user_data = {
             'token': token,
         }
