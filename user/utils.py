@@ -34,5 +34,5 @@ def send_confirmation_email(user):
     recipient_list = [user.email]
     send_mail(subject, message, email_from, recipient_list)
 
-    user.is_email_confirmed = False  # زمانی که ایمیل تایید شد، این مقدار را True کنید
+    user.is_email_confirmed = False  
     user.save()

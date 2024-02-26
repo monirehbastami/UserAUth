@@ -72,4 +72,3 @@ class ChangePasswordActionViewSet(generics.GenericAPIView):
             status=status.HTTP_200_OK )
 
 
-
