@@ -35,6 +35,14 @@ class ChangePasswordRequestViewSet(generics.GenericAPIView):
             'message': 'Reset Password Email hs been sent',
             'token': str(token)
         }
+        serializer_data = {
+            'token': token,
+            'password': serializer.validated_data['password'],
+            'repeat_password': serializer.validated_data['repeat_password'],
+        }
+
+        # ارسال درخواست به ویو ChangePasswordActionViewSet
+        ChangePasswordActionViewSet(data=serializer_data)
         return Response(data=response_data, status=status.HTTP_200_OK)   
 
 
@@ -42,7 +50,19 @@ class ChangePasswordRequestViewSet(generics.GenericAPIView):
 @extend_schema(tags=["Change Password"])
 class ChangePasswordActionViewSet(generics.GenericAPIView):
     serializer_class = ChangePasswordActionSerializer
-
+    
+    def get(self, request, *args, **kwargs):
+        token= request.query_params.get('token')
+        user_data = {
+            'token': token,
+        }
+        return Response(data=user_data, status=status.HTTP_200_OK)
+    
+    def get_serializer(self, *args, **kwargs):
+        serializer = super().get_serializer(*args, **kwargs)
+        serializer.context['token'] = self.request.query_params.get('token')
+        return serializer
+    
     def patch(self, request):
         serializer = self.serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)

@@ -135,13 +135,4 @@ class SchoolStaffRetrieveSerializer(serializers.ModelSerializer):
             instance.save()
 
         return instance
-        
-    
-
-
-class UserInformationSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = User
-        fields = ['email','is_email_confirmed']
-
     

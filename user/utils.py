@@ -16,8 +16,10 @@ def send_reset_password_email_task(email,url):
     email_body = 'Hello ' + email + \
                  '\n Click the following link for reset password \n' + url
     sleep(10)
-    send_mail(email_subject,email_body,settings.EMAIL_HOST_USER,['monirehbastami@yahoo.com'])
+    send_mail(email_subject,email_body,settings.EMAIL_HOST_USER,[email])
     return None
+
+
 
 
 @shared_task

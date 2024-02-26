@@ -26,7 +26,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-lon3+2c-s49gbr&&xbydu9)(*%*-h8586v2101l-_1&yyo%s!_'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1','localhost']
 
@@ -141,7 +141,7 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = "monirehbastami@gmail.com"
-EMAIL_HOST_PASSWORD = "--"
+EMAIL_HOST_PASSWORD = "lcfa etap iqop begm"
 DEFAULT_FROM_EMAIL = "monirehbastami@gmail.com"
 
 
