@@ -19,14 +19,6 @@ def send_reset_password_email_task(email,url):
     send_mail(email_subject,email_body,settings.EMAIL_HOST_USER,[email])
     return None
 
-
-
-
-@shared_task
-def send_otp_email(otp_code,receiver):
-    email = EmailMessage("otp",f"otp-code: {otp_code}",EMAIL_HOST_USER,[receiver])
-    email.send()
-
 def send_activation_email(user,url):
     subject = 'Activation Email'
     message = 'Please confirm your email address to activate your account.'+url
