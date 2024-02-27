@@ -27,12 +27,10 @@ def send_otp_email(otp_code,receiver):
     email = EmailMessage("otp",f"otp-code: {otp_code}",EMAIL_HOST_USER,[receiver])
     email.send()
 
-def send_confirmation_email(user):
-    subject = 'Confirmation Email'
-    message = 'Please confirm your email address to activate your account.'
+def send_activation_email(user,url):
+    subject = 'Activation Email'
+    message = 'Please confirm your email address to activate your account.'+url
     email_from = settings.EMAIL_HOST_USER
     recipient_list = [user.email]
     send_mail(subject, message, email_from, recipient_list)
-
-    user.is_email_confirmed = False  
-    user.save()
+    return None

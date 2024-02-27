@@ -1,7 +1,9 @@
 from rest_framework import serializers
 from schools.models import School
-from user.models import SchoolStaffProfile, SchoolStaff, SchoolStaffProfile
+from user.models import SchoolStaffProfile, SchoolStaff, SchoolStaffProfile,User
 from rest_framework.validators import UniqueTogetherValidator
+import jwt
+from rest_framework.exceptions import AuthenticationFailed
 
 
 class SchoolStaffProfileSerializer(serializers.ModelSerializer):
@@ -167,3 +169,8 @@ class SchoolStaffRetrieveSerializer(serializers.ModelSerializer):
 
         return instance
     
+
+class ActiveUserSerializer(serializers.Serializer):
+    token = serializers.CharField(max_length=600)
+    class Meta:
+        fields=['token']

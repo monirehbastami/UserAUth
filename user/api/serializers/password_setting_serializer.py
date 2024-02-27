@@ -7,7 +7,6 @@ import os
 from rest_framework import serializers
 from rest_framework.serializers import ValidationError
 from rest_framework import serializers
-from rest_framework_simplejwt.tokens import RefreshToken
 import jwt
 
 
