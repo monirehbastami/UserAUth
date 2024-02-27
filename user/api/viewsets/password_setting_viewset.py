@@ -50,9 +50,14 @@ class ChangePasswordActionViewSet(generics.GenericAPIView):
         }
         return Response(data=user_data, status=status.HTTP_200_OK)
     
-    def get_serializer(self, *args, **kwargs):
+    def get_serializer(self,*args, **kwargs):
         serializer = super().get_serializer(*args, **kwargs)
-        serializer.context['token'] = self.request.query_params.get('token')
+        
+        token= self.request.query_params.get('token')
+        serializer.fields['token'].default = token
+        serializer.fields['token'].initial = token
+        serializer.fields['token'].required = False
+        
         return serializer
     
     def patch(self, request):
