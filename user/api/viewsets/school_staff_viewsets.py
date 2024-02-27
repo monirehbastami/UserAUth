@@ -2,12 +2,13 @@ from rest_framework import viewsets,status
 from rest_framework.response import Response
 from user.api.serializers import SchoolStaffSerializer,SchoolStaffRetrieveSerializer,ActiveUserSerializer
 from user.models import SchoolStaff,User
-from rest_framework.permissions import IsAdminUser,IsAuthenticatedOrReadOnly
+from rest_framework.permissions import IsAdminUser,IsAuthenticatedOrReadOnly,IsAuthenticated
 from rest_framework.authentication import TokenAuthentication
 from user.utils import send_activation_email
 import jwt
 from rest_framework import generics, status
 from rest_framework.exceptions import AuthenticationFailed
+from permissions.permission import IsConfirm
 
 
 
@@ -24,7 +25,12 @@ class SchoolStaffApiViewSet(viewsets.ModelViewSet):
             return self.request.user
         return super().get_object()
         
-
+    def get_permissions(self):
+        if self.action in ['partial_update','create','update','delete']:
+            return [IsAuthenticated(),IsConfirm()]
+        
+        return super().get_permissions()
+    
     def get_serializer_class(self):
         if self.action in ['list','create']:
             return SchoolStaffSerializer
